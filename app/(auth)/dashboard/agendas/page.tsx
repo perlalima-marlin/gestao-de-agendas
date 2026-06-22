@@ -2,13 +2,17 @@ import { auth } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { redirect } from "next/navigation"
 import Link from "next/link"
+import type { Agenda } from "@prisma/client"
+
+type AgendaWithCount = Agenda & { _count: { eventos: number } }
 
 export default async function AgendasPage() {
   const session = await auth()
   if (!session?.user?.id) redirect("/login")
 
-  const agendas = await db.agenda.findMany({
-    where: { userId: session.user.id },
+  const userId = session.user.id as string
+  const agendas: AgendaWithCount[] = await db.agenda.findMany({
+    where: { userId },
     include: { _count: { select: { eventos: true } } },
     orderBy: { createdAt: "desc" },
   })

@@ -3,11 +3,18 @@ import { NextRequest, NextResponse } from "next/server"
 import Stripe from "stripe"
 import { db } from "@/lib/db"
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2026-02-25.clover" as any,
-})
+let _stripe: Stripe | null = null
+function getStripe() {
+  if (!_stripe) {
+    _stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+      apiVersion: "2026-02-25.clover" as any,
+    })
+  }
+  return _stripe
+}
 
 export async function POST(req: NextRequest) {
+  const stripe = getStripe()
   const body = await req.text()
   const headersList = await headers()
   const signature = headersList.get("stripe-signature")!
@@ -40,7 +47,7 @@ export async function POST(req: NextRequest) {
 
     case "invoice.payment_succeeded": {
       const invoice = event.data.object as Stripe.Invoice
-      const subId = (invoice as any).parent?.subscription_details?.subscription ?? invoice.subscription
+      const subId = (invoice as any).parent?.subscription_details?.subscription ?? (invoice as any).subscription
       if (!subId) break
       const sub = await stripe.subscriptions.retrieve(subId as string)
       await db.user.updateMany({
