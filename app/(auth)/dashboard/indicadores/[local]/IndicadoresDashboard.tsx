@@ -486,7 +486,7 @@ export function IndicadoresDashboard({
 
         {/* Right panel — Agenda do Dia */}
         {diaSelecionado && (
-          <div className="w-72 shrink-0 bg-white border-l flex flex-col">
+          <div className="fixed right-0 top-0 z-40 w-72 h-screen bg-white border-l shadow-lg flex flex-col">
             {/* Header */}
             <div className="bg-[#00897B] text-white px-4 py-4 flex items-start justify-between">
               <div>
