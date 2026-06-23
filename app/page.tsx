@@ -67,8 +67,17 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t px-6 py-8 text-center text-sm text-muted-foreground">
-        © {new Date().getFullYear()} Gestão de Agendas. Todos os direitos reservados.
+      <footer className="border-t px-6 py-8 text-sm text-muted-foreground">
+        <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 sm:flex-row">
+          <span>
+            © {new Date().getFullYear()} Gestão de Agendas. Todos os direitos reservados.
+          </span>
+          <div className="flex gap-4">
+            <Link href="/privacy" className="hover:text-foreground transition-colors">
+              Política de Privacidade
+            </Link>
+          </div>
+        </div>
       </footer>
     </div>
   )

@@ -88,7 +88,7 @@ export function Sidebar() {
     pathname === `/dashboard/agendas/${localId}`
 
   return (
-    <aside className="flex h-screen w-64 flex-col bg-[#00897B] text-white shrink-0 overflow-y-auto">
+    <aside className="fixed left-0 top-0 z-50 flex h-screen w-64 flex-col bg-[#00897B] text-white overflow-y-auto shadow-lg">
       {/* Logo */}
       <div className="flex items-center gap-3 px-5 py-4 border-b border-white/10">
         <div className="flex items-center gap-2">
