@@ -20,7 +20,7 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
       <Sidebar />
       <div className="flex flex-1 flex-col overflow-auto">
         {showTrialBanner && <TrialBanner daysLeft={days} />}
-        <main className="flex-1 p-6">{children}</main>
+        <main className="flex-1">{children}</main>
       </div>
     </div>
   )
